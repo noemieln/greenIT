@@ -15,8 +15,7 @@
 </head>
 <body>
     <h1>vitrine Disney ✨</h1>
-
-    <div class="catalogue">
+    <div  id="catalogue" class="catalogue">
         <div class="figurine">
             <img src="https://via.placeholder.com/150" alt="Mickey">
             <p>Mickey Mouse</p>
@@ -30,7 +29,25 @@
             <p>Simba</p>
         </div>
     </div>
-
+    <script>
+        fetch('/api/figurines')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('catalogue');
+                data.forEach(figurine => {
+                    const div = document.createElement('div');
+                    div.className = 'figurine';
+                    div.innerHTML = `
+                        <img src="/img/${figurine.image_url}" alt="${figurine.nom}">
+                        <p><strong>${figurine.nom}</strong></p>
+                        <p>${figurine.description}</p>
+                    `;
+                    container.appendChild(div);
+                });
+            })
+            .catch(err => console.error('Erreur de chargement des figurines :', err));
+    </script>
+    
     <footer>
         © 2025 Figurines Disney - Site éco-conçu 🌱
     </footer>
