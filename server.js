@@ -94,6 +94,25 @@ app.post('/api/figurines', (req, res) => {
 app.get('/api/test', (req, res) => {
     res.json({ message: "La route API fonctionne !" });
 });
+
+// Supprimer une figurine
+app.delete('/api/figurines/:id', (req, res) => {
+    db.run(`DELETE FROM figurines WHERE id = ?`, [req.params.id], function(err) {
+        if (err) res.status(400).json({ error: err.message });
+        else res.json({ message: 'Figurine supprimée' });
+    });
+});
+
+// Modifier une figurine
+app.put('/api/figurines/:id', (req, res) => {
+    const { nom, description, image_url } = req.body;
+    db.run(`UPDATE figurines SET nom = ?, description = ?, image_url = ? WHERE id = ?`,
+        [nom, description, image_url, req.params.id],
+        function(err) {
+            if (err) res.status(400).json({ error: err.message });
+            else res.json({ message: 'Figurine modifiée' });
+        });
+});
 // ==========================
 // Middleware STATIC 
 // ==========================

@@ -15,19 +15,13 @@
 </head>
 <body>
     <h1>vitrine Disney ✨</h1>
+    <div style="text-align: center; margin-bottom: 20px;">
+        <a href="admin.html" style="padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">
+            Gestion des Utilisateurs
+        </a>
+    </div>
+
     <div  id="catalogue" class="catalogue">
-        <div class="figurine">
-            <img src="https://via.placeholder.com/150" alt="Mickey">
-            <p>Mickey Mouse</p>
-        </div>
-        <div class="figurine">
-            <img src="https://via.placeholder.com/150" alt="Donald">
-            <p>Donald Duck</p>
-        </div>
-        <div class="figurine">
-            <img src="https://via.placeholder.com/150" alt="Simba">
-            <p>Simba</p>
-        </div>
     </div>
     <script>
         fetch('/api/figurines')
