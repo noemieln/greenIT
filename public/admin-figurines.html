@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des Figurines</title>
+    <style>
+        table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
+        input { margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Gestion des Figurines</h1>
+
+    <!-- Formulaire d'ajout -->
+    <h2>Ajouter une Figurine</h2>
+    <input type="text" id="nom" placeholder="Nom">
+    <input type="text" id="description" placeholder="Description">
+    <input type="text" id="image_url" placeholder="Image (chemin)">
+    <button onclick="ajouterFigurine()">Ajouter</button>
+
+    <!-- Tableau des figurines -->
+    <h2>Liste des Figurines</h2>
+    <table id="tableFigurines">
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </table>
+
+    <script src="admin-figurines.js"></script>
+</body>
+</html>
