@@ -1,0 +1,117 @@
+<body>
+    <h1>👤 Gestion des Utilisateurs</h1>
+
+    <!-- Le formulaire -->
+    <h2>Ajouter un utilisateur</h2>
+    <form id="userForm">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="text" id="role" placeholder="Role" required>
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <!-- Le tableau des utilisateurs -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+
+        </thead>
+        <tbody id="userTable">
+            <!-- Les users s'affichent ici -->
+        </tbody>
+    </table>
+
+    <!-- Script pour afficher les users -->
+    <script>
+        fetch('/api/users')
+            .then(response => response.json())
+            .then(data => {
+                const table = document.getElementById('userTable');
+                data.forEach(user => {
+                    table.innerHTML += `
+                        <tr>
+                            <td>${user.id}</td>
+                            <td>${user.username}</td>
+                            <td>${user.email}</td>
+                            <td>${user.role}</td>
+                            <td>
+                                <button onclick="editUser(${user.id}, '${user.username}', '${user.email}', '${user.role}')">Modifier</button>
+                                <button onclick="deleteUser(${user.id})">Supprimer</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            })
+            .catch(err => console.error('Erreur :', err));
+    </script>
+
+    <!-- 👉 Ici tu ajoutes le script pour gérer le formulaire -->
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = {
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                role: document.getElementById('role').value
+            };
+
+            fetch('/api/users', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(user)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Utilisateur ajouté avec l'ID : " + data.id);
+                location.reload();  // Recharge la page pour voir le nouvel user
+            })
+            .catch(err => console.error('Erreur :', err));
+        });
+    </script>
+    <script>
+        function deleteUser(id) {
+            if(confirm("Tu veux vraiment supprimer cet utilisateur ?")) {
+                fetch(`/api/users/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    location.reload();  // Recharge pour mettre à jour le tableau
+                })
+                .catch(err => console.error('Erreur :', err));
+            }
+        }
+    </script>
+    <script>
+        function editUser(id, currentUsername, currentEmail, currentRole) {
+            const username = prompt("Nouveau username :", currentUsername);
+            const email = prompt("Nouvel email :", currentEmail);
+            const role = prompt("Nouveau rôle :", currentRole);
+    
+            if(username && email && role) {
+                fetch(`/api/users/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, role })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    location.reload();
+                })
+                .catch(err => console.error('Erreur :', err));
+            } else {
+                alert("Modification annulée ou incomplète !");
+            }
+        }
+    </script>
+    
+    
+</body>
