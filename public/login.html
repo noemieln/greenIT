@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -173,6 +173,7 @@
     </div>
   </div>
 
+  <!-- SCRIPT CORRIGÉ -->
   <script>
     function connectUser() {
       const mail = document.getElementById("userMail").value;
@@ -189,6 +190,7 @@
       const mail = document.getElementById("adminMail").value;
       const pass = document.getElementById("adminPassword").value;
       if (mail && pass) {
+        sessionStorage.setItem('isAdmin', true);  // Ajout pour accès admin
         alert("Connecté en tant qu'admin !");
         window.location.href = "admin-figurines.html";
       } else {
@@ -216,6 +218,7 @@
         alert("Inscrit en tant qu'utilisateur !");
         window.location.href = "index.html";
       } else {
+        sessionStorage.setItem('isAdmin', true);  // Ajout pour admin inscrit
         alert("Inscrit en tant qu'administrateur !");
         window.location.href = "admin-figurines.html";
       }
