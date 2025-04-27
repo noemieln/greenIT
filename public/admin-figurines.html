@@ -2,38 +2,51 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <title>Gestion des Figurines</title>
-    <style>
-        table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
-        input { margin: 5px; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+
 </head>
-<body>
-    <h1>Gestion des Figurines</h1>
+<body class="admin-page">
+    <header class="admin-header">
+      <div class="logo">
+        <img src="images/logo.png" alt="Logo Luna Figurine">
+        <div class="brand">
+          <h1>Luna<br>Figurine</h1>
+          <p>DISNEY</p>
+        </div>
+      </div>
+      <nav class="admin-nav">
+        <a href="index.html" class="btn-accueil">Accueil</a>
+        <a href="profil.html" class="user-icon-btn" title="Voir le profil">👤</a>
 
-    <!-- Formulaire d'ajout -->
-    <h2>Ajouter une Figurine</h2>
-    <input type="text" id="nom" placeholder="Nom">
-    <input type="text" id="description" placeholder="Description">
-    <input type="text" id="image_url" placeholder="Image (chemin)">
-    <button onclick="ajouterFigurine()">Ajouter</button>
-
-    <!-- Tableau des figurines -->
-    <h2>Liste des Figurines</h2>
-    <table id="tableFigurines">
-        <tr>
+      </nav>
+    </header>
+  
+    <main class="admin-main">
+      <h1 class="admin-title">Gestion des Figurines</h1>
+  
+      <section class="form-section">
+        <h2>Ajouter une figurine</h2>
+        <input type="text" id="nom" placeholder="Nom" class="input-text">
+        <input type="text" id="description" placeholder="Description" class="input-text">
+        <input type="text" id="image_url" placeholder="Image (chemin)" class="input-text">
+        <button onclick="ajouterFigurine()" class="btn-ajouter">Ajouter</button>
+      </section>
+  
+      <section class="table-section">
+        <h2>Liste des figurines</h2>
+        <table id="tableFigurines" class="styled-table">
+          <tr>
             <th>ID</th>
             <th>Nom</th>
             <th>Description</th>
             <th>Image</th>
-            <th>Actions</th>
-        </tr>
-    </table>
-
-    <script src="admin-figurines.js"></script>
-    <div style="margin: 20px 0;">
-    <a href="index.html" class="bouton-retour"> Retour à l'accueil</a>
-
-</body>
+            <th>Action</th>
+          </tr>
+        </table>
+      </section>
+    </main>
+  </body>
+  
 </html>

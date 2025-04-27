@@ -2,7 +2,7 @@
 window.onload = chargerFigurines;
 
 function chargerFigurines() {
-    fetch('/api/figurines')
+    fetch('http://localhost:3000/api/figurines')
         .then(res => res.json())
         .then(data => {
             const table = document.getElementById('tableFigurines');
@@ -16,15 +16,13 @@ function chargerFigurines() {
                         <td>${fig.id}</td>
                         <td>${fig.nom}</td>
                         <td>${fig.description}</td>
-                        <td><img src="img/${fig.image_url}" alt="${fig.nom}" width="50"></td>
-                        <td>
-                            <button onclick="supprimerFigurine(${fig.id})">Supprimer</button>
-                            <button onclick="modifierFigurine(${fig.id}, '${fig.nom}', '${fig.description}', '${fig.image_url}')">Modifier</button>
-                        </td>
+                        <td><img src="images/${fig.image_url}" width="80" alt="${fig.nom}"></td>
+                        <td><button>Supprimer</button></td>
                     </tr>`;
             });
         });
 }
+
 
 // Ajouter une figurine
 function ajouterFigurine() {
