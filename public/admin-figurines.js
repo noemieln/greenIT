@@ -17,7 +17,11 @@ function chargerFigurines() {
                         <td>${fig.nom}</td>
                         <td>${fig.description}</td>
                         <td><img src="images/${fig.image_url}" width="80" alt="${fig.nom}"></td>
-                        <td><button>Supprimer</button></td>
+                        <td>
+                        <button onclick="supprimerFigurine(${fig.id})">Supprimer</button>
+                        <button onclick="modifierFigurine(${fig.id}, '${fig.nom}', '${fig.description}', '${fig.image_url}')">Modifier</button>
+                        </td>
+
                     </tr>`;
             });
         });

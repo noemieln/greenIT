@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="styles.css">
     <title>Gestion des Figurines</title>
     <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+    
 
 </head>
 <body class="admin-page">
@@ -22,7 +23,15 @@
 
       </nav>
     </header>
-  
+    <script>
+      // Simple protection côté client (pas très sécurisé, mais ok pour projet étudiant)
+      const isAdmin = sessionStorage.getItem('isAdmin');
+      if (!isAdmin) {
+        alert("Accès réservé aux administrateurs");
+        window.location.href = "login.html";
+      }
+    </script>
+    
     <main class="admin-main">
       <h1 class="admin-title">Gestion des Figurines</h1>
   
@@ -47,6 +56,7 @@
         </table>
       </section>
     </main>
-  </body>
-  
+    <script src="admin-figurines.js"></script>
+</body>
 </html>
+
