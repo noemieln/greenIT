@@ -10,13 +10,11 @@ Assurer une navigation sécurisée (accès réservé à l'administration).
 Respecter les bonnes pratiques GreenIT (poids des pages, optimisation des ressources).
 
 Fonctionnalités:
-Vitrine (Page d'accueil):Affichage des figurines emblématiques Disney.
+Vitrine (Page d'accueil)
 Présentation de l'entreprise Luna Figurine.
 Boutons d'accès à l'administration (protégés).
-Gestion des Utilisateurs (Admin): Ajouter, modifier, supprimer des utilisateurs.
 Interface simple et efficace.
-Gestion des Figurines (Admin): Ajouter de nouvelles figurines (nom, description, image).
-Supprimer des figurines.
+Gestion des Figurines (Admin): Ajouter de nouvelles figurines (nom, description, image, supprimer des figurines)
 Affichage dynamique via l'API.
 Connexion / Déconnexion : Accès sécurisé aux pages d'administration via un système de connexion simplifié (sessionStorage).
 

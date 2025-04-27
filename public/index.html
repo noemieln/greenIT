@@ -17,11 +17,10 @@
           <p>DISNEY</p>
         </div>      
     </div>
-    <button onclick="seDeconnecter()" class="btn-deconnexion">Déconnexion</button>
+
     <nav class="navbar">
         <a href="nos-figurines.html" class="nav-button">Nos Figurines</a>
         <a href="login.html" class="nav-button">Se connecter / S’inscrire</a>
-        <a href="admin.html" class="btn-gestion">Gestion des Utilisateurs</a>
         <a href="admin-figurines.html" class="btn-gestion">Gestion des Figurines</a>
     </nav>      
   </header>
@@ -33,8 +32,7 @@
       </div>
       <div class="intro-image-right">
         <img src="images/citation.png" alt="Citation Disney" class="quote-img">
-      </div> 
-      <br><br><br>     
+      </div>    
     </section>
 
     <section class="presentation">
@@ -43,7 +41,7 @@
       </div>
       <div class="presentation-text">
         <h2>Luna Figurine</h2>
-        <p>Disney propose ce site vitrine pour permettre à tous <br> ses fans de connaître l’histoire qui se cache derrière <br> ses figurines historiques !</p>
+        <p>Disney propose ce site vitrine pour permettre à tous <br> ses fans de connaître l’histoire qui se cache derrière <br> ses figurines historiques. !</p>
       </div>
     </section>
   </main>
@@ -52,14 +50,6 @@
     <div class="finpage">
       <a href="#"><img src="images/finpage.png" alt="Facebook"></a>
     </div>
-
-    <script>
-      function seDeconnecter() {
-        sessionStorage.removeItem('isAdmin');
-        alert("Vous êtes déconnecté !");
-        window.location.href = "login.html";
-      }
-    </script>
     
     <footer>
         © 2025 Figurines Disney - Site éco-conçu 🌱
