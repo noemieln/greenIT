@@ -1,4 +1,4 @@
-/* Style global */
+/*Style global 
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
@@ -23,7 +23,7 @@ body {
     background-color: #2980b9;
 }
 
-/* Tableaux */
+/* Tableaux 
 table {
     border-collapse: collapse;
     width: 100%;
@@ -41,7 +41,7 @@ th {
     color: white;
 }
 
-/* Figurines */
+/* Figurines 
 .catalogue {
     display: flex;
     flex-wrap: wrap;
@@ -68,7 +68,7 @@ th {
     display: inline-block;
     margin: 10px;
     padding: 10px 20px;
-    background-color: #2ecc71;  /* Vert */
+    background-color: #2ecc71;  /* Vert 
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -81,10 +81,137 @@ th {
 }
 
 .btn-gestion-figurines {
-    background-color: #e67e22;  /* Orange sympa */
+    background-color: #e67e22;  /* Orange sympa 
 }
 
 .btn-gestion-figurines:hover {
     background-color: #d35400;
+}
+    */
+
+body {
+margin: 0;
+font-family: 'Cal Sans', sans-serif;
+background-color: #fceefd;
+color: #000;
+}
+
+header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center; /* ← remplace ceci : */
+    /* align-items: flex-end; */
+    gap: 10px;
+  }
+  
+  .logo img {
+    height: 80px; /* ajuste la taille de l’image ici */
+    object-fit: contain;
+    /* centrage vertical parfait : */
+    align-self: center;
+  }
+  
+  .brand h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .brand p {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+
+  .navbar {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-button {
+    background-color: #e7c3ff; /* violet pastel */
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 14px;
+    font-family: 'Cal Sans', sans-serif; /* ou ta police */
+    font-size: 17px;
+    transition: transform 0.2s ease, background-color 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-button:hover {
+    background-color: #c987f2;
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+  
+
+  .intro {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 40px 20px;
+    gap: 20px;
+  }
+  
+  .intro-image {
+    width: 40%;
+  }
+  
+  .intro-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    object-fit: cover;
+  }
+  
+  .intro-image-right {
+    width: 60%;
+  }
+  
+  .quote-img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    object-fit: contain;
+  }
+  
+
+.presentation {
+display: flex;
+padding: 40px 20px;
+align-items: center;
+justify-content: center;
+}
+
+.presentation-img img {
+width: 350px;
+border-radius: 10px;
+}
+
+.presentation-text {
+padding-left: 30px;
+}
+
+footer {
+text-align: center;
+font-size: 14px;
+padding: 20px;
+background-color: #fceefd;
+}
+
+
+.finpage img {
+width: 320px;
+vertical-align: middle;
 }
 

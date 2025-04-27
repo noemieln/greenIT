@@ -1,49 +1,58 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Figurines Disney</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
-        h1 { text-align: center; }
-        .catalogue { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-        .figurine { background: white; padding: 10px; width: 150px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
-        .figurine img { width: 100%; height: auto; }
-        footer { text-align: center; margin-top: 40px; font-size: 0.8em; color: #555; }
-    </style>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
+        <title>Luna Figurine</title>
+    </head>
+      
 <body>
-    <h1>vitrine Disney ✨</h1>
-    <div style="text-align: center; margin-bottom: 20px;">
-        <a href="admin.html" style="padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">
-            Gestion des Utilisateurs
-        </a>
-        <a href="/admin-figurines.html" class="btn-gestion btn-gestion-figurines">Gestion des Figurines</a>
+  <header>
+    <div class="logo">
+        <img src="images/logo.png" alt="Logo Luna Figurine">
+        <div class="brand">
+          <h1>Luna<br>Figurine</h1>
+          <p>DISNEY</p>
+        </div>      
+    </div>
+    <nav class="navbar">
+        <a href="#" class="nav-button">Notre point vert</a>
+        <a href="#" class="nav-button">Nos Figurines</a>
+        <a href="#" class="nav-button">Se connecter / S’inscrire</a>
+      </nav>      
+  </header>
 
+  <main>
+    <section class="intro">
+      <div class="intro-image">
+        <img src="images/disney-castle.jpg" alt="Château Disney">
+      </div>
+      <div class="intro-image-right">
+        <img src="images/citation.png" alt="Citation Disney" class="quote-img">
+      </div> 
+      <br>
+      <br>
+      <br>     
+    </section>
+
+    <section class="presentation">
+      <div class="presentation-img">
+        <img src="images/dumbo.jpg" alt="Statue Dumbo"> <!-- à remplacer -->
+      </div>
+      <div class="presentation-text">
+        <h2>Luna Figurine</h2>
+        <p>Disney propose ce site vitrine pour permettre à tous <br> ses fans de connaître l’histoire qui se cache derrière <br> ses figurines historiques. !</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="finpage">
+      <a href="#"><img src="images/finpage.png" alt="Facebook"></a>
     </div>
 
-    <div  id="catalogue" class="catalogue">
-    </div>
-    <script>
-        fetch('/api/figurines')
-            .then(response => response.json())
-            .then(data => {
-                const container = document.getElementById('catalogue');
-                data.forEach(figurine => {
-                    const div = document.createElement('div');
-                    div.className = 'figurine';
-                    div.innerHTML = `
-                        <img src="/img/${figurine.image_url}" alt="${figurine.nom}">
-                        <p><strong>${figurine.nom}</strong></p>
-                        <p>${figurine.description}</p>
-                    `;
-                    container.appendChild(div);
-                });
-            })
-            .catch(err => console.error('Erreur de chargement des figurines :', err));
-    </script>
     
     <footer>
         © 2025 Figurines Disney - Site éco-conçu 🌱
