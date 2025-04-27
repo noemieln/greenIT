@@ -42,6 +42,7 @@ Ces identifiants permettent d'accéder aux pages de gestion.
 
 Alicia Martins (back end)
 Noémie Largent (front end)
-rajouter les autres
+elizabeth (partie green it)
+leyticia (partie green it)
 
-Mai 2025 — EFREI Paris
+avril 2025 — EFREI Paris
