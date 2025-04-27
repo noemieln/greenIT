@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Nos Figurines</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>🌟 Nos Figurines Disney 🌟</h1>
+        <a href="index.html" class="btn-retour">Retour à l'accueil</a>
+    </header>
+
+    <main id="figurines-container">
+        <!-- Les figurines vont être générées ici dynamiquement -->
+    </main>
+
+    <script>
+      // Appel API pour récupérer les figurines
+      fetch('/api/figurines')
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById('figurines-container');
+            data.forEach(figurine => {
+                container.innerHTML += `
+                  <div class="figurine-item">
+                      <img src="img/${figurine.image_url}" alt="${figurine.nom}">
+                      <div class="description">
+                          <h2>${figurine.nom}</h2>
+                          <p>${figurine.description}</p>
+                      </div>
+                  </div>
+                `;
+            });
+        });
+    </script>
+</body>
+</html>
