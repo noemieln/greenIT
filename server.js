@@ -1,55 +1,57 @@
-const express = require('express');
-const mysql = require('mysql2');
-const cors = require('cors');
+const express = require('express'); 
+const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
 const app = express();
-app.use(cors());
+const PORT = 3000;
+
+// Middleware
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Sert tous les fichiers HTML, CSS, JS, images depuis le dossier public
-app.use(cors({
-    origin: ['http://localhost:5500', 'http://localhost:3000']
-  }));
-  
+// Connexion à la BDD SQLite
+const db = new sqlite3.Database('./database/disney.db', (err) => {
+    if (err) console.error('Erreur de connexion à la BDD', err);
+    else console.log('Connecté à la base de données SQLite');
+});
 
-// Connexion à la base de données MySQL
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',  
-    database: 'disney_db'
-  });
-  
+// Création de la table figurines si elle n'existe pas
+db.serialize(() => {
+    db.run(`CREATE TABLE IF NOT EXISTS figurines (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nom TEXT NOT NULL,
+        description TEXT,
+        image_url TEXT
+    )`);
+});
 
-// Lire les figurines
+// Routes API CRUD Figurines
 app.get('/api/figurines', (req, res) => {
-  db.query('SELECT * FROM figurines', (err, result) => {
-    if (err) return res.status(500).send(err);
-    res.json(result);
-  });
+    db.all("SELECT * FROM figurines", [], (err, rows) => {
+        if (err) res.status(400).json({ error: err.message });
+        else res.json(rows);
+    });
 });
 
-// Ajouter une figurine
 app.post('/api/figurines', (req, res) => {
-  const { nom, description, image_url } = req.body;
-  const sql = 'INSERT INTO figurines (nom, description, image_url) VALUES (?, ?, ?)';
-  db.query(sql, [nom, description, image_url], (err, result) => {
-    if (err) return res.status(500).send(err);
-    res.status(201).send('Figurine ajoutée !');
-  });
+    const { nom, description, image_url } = req.body;
+    db.run(`INSERT INTO figurines (nom, description, image_url) VALUES (?, ?, ?)`,
+        [nom, description, image_url],
+        function(err) {
+            if (err) res.status(400).json({ error: err.message });
+            else res.json({ id: this.lastID });
+        });
 });
 
-// Supprimer une figurine
 app.delete('/api/figurines/:id', (req, res) => {
-  const sql = 'DELETE FROM figurines WHERE id = ?';
-  db.query(sql, [req.params.id], (err, result) => {
-    if (err) return res.status(500).send(err);
-    res.send('Figurine supprimée');
-  });
+    db.run(`DELETE FROM figurines WHERE id = ?`, [req.params.id], function(err) {
+        if (err) res.status(400).json({ error: err.message });
+        else res.json({ message: 'Figurine supprimée' });
+    });
 });
 
-// Lancer le serveur
-app.listen(3000, () => {
-  console.log('Serveur lancé sur http://localhost:3000');
+// Démarrer le serveur
+app.listen(PORT, () => {
+    console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });
+

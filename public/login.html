@@ -1,4 +1,3 @@
-<!-- login.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,7 +5,7 @@
   <title>Connexion</title>
 </head>
 <body>
-  <h2>Connexion</h2>
+  <h2>Connexion Administrateur</h2>
   <form onsubmit="seConnecter(event)">
     <input type="text" id="username" placeholder="Nom d'utilisateur" required><br>
     <input type="password" id="password" placeholder="Mot de passe" required><br>
@@ -20,15 +19,16 @@
       const user = document.getElementById('username').value;
       const pass = document.getElementById('password').value;
 
-      // 👇 Logique simple côté client pour tester
+      // Vérification simple
       if (user === "admin" && pass === "admin123") {
+        // On stocke l'info admin dans la session
+        sessionStorage.setItem('isAdmin', 'true');
+        alert("Connexion réussie !");
         window.location.href = "admin-figurines.html";
       } else {
         alert("Accès refusé !");
       }
     }
-   
-
   </script>
 </body>
 </html>
