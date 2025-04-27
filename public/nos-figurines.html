@@ -24,7 +24,7 @@
             data.forEach(figurine => {
                 container.innerHTML += `
                   <div class="figurine-item">
-                      <img src="img/${figurine.image_url}" alt="${figurine.nom}">
+                      <img src="images/${figurine.image_url}" alt="${figurine.nom}">
                       <div class="description">
                           <h2>${figurine.nom}</h2>
                           <p>${figurine.description}</p>
@@ -33,6 +33,17 @@
                 `;
             });
         });
+        container.innerHTML += `
+            <div class="figurine-item">
+                <img src="images/${figurine.image_url}" alt="${figurine.nom}">
+                <div class="description">
+                    <h2>${figurine.nom}</h2>
+                    <p>${figurine.description}</p>
+                </div>
+            </div>
+        `;
     </script>
+
+  
 </body>
 </html>
