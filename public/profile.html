@@ -2,12 +2,152 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Profil</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Mon profil</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #fceefd;
+      font-family: 'Cal Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      width: 60px;
+      margin-right: 10px;
+    }
+    .brand h2 {
+      margin: 0;
+    }
+    .nav {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      background-color: #dcaefb;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      color: black;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #c797ea;
+    }
+    .main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 50px;
+      gap: 100px;
+    }
+    .main img {
+      max-height: 400px;
+    }
+    .form-section {
+      max-width: 400px;
+    }
+    .form-section h1 {
+      border-bottom: 3px solid #dcaefb;
+    }
+    .form-section label {
+      font-weight: bold;
+      color: #dcaefb;
+      display: block;
+      margin-top: 20px;
+    }
+    .form-section input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #dcaefb;
+      border-radius: 10px;
+      margin-top: 5px;
+      font-family: inherit;
+    }
+    .form-section button {
+      margin-top: 20px;
+    }
+
+    .profile-img {
+  border-radius: 30px; /* tu peux mettre 50% pour un cercle */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* optionnel : petite ombre douce */
+  max-width: 100%;
+  height: auto;
+}
+
+  </style>
 </head>
 <body>
-  <h1>Page Profil</h1>
-  <p>Bienvenue sur ta page profil !</p>
-  <a href="admin-figurines.html" class="nav-button">Retour à l’administration</a>
+  <header>
+    <div class="logo">
+      <img src="images/logo.png" alt="logo">
+      <div class="brand">
+        <h2>Luna <br>Figurine</h2>
+        <p>DISNEY</p>
+      </div>
+    </div>
+    <div class="nav">
+      <a class="btn" href="#" onclick="logout()">Se déconnecter</a>
+      <a class="btn" href="nos-figurines.html">Nos figurines</a>
+      <a class="btn" href="index.html">Accueil</a>
+    </div>
+  </header>
+
+  <div class="main">
+    <img src="images/profile.png" alt="logo Disney" class="profile-img">
+    <div class="form-section">
+      <h1>Mon profile</h1>
+      <form onsubmit="modifierProfil(event)">
+        <label for="email">mail</label>
+        <input type="text" id="email" placeholder="Mail">
+
+        <label for="password">mot de passe</label>
+        <input type="password" id="password" placeholder="Mot de passe">
+
+        <label for="newEmail">Nouveau mail</label>
+        <input type="text" id="newEmail" placeholder="Mail">
+
+        <label for="newPassword">Nouveau mot de passe</label>
+        <input type="password" id="newPassword" placeholder="Mot de passe">
+
+        <button class="btn" type="submit">modifier</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function logout() {
+      sessionStorage.removeItem('isAdmin');
+      alert("Vous avez été déconnecté(e).");
+      window.location.href = "index.html";
+    }
+
+    function modifierProfil(e) {
+      e.preventDefault();
+      const mail = document.getElementById("email").value;
+      const pass = document.getElementById("password").value;
+      const newMail = document.getElementById("newEmail").value;
+      const newPass = document.getElementById("newPassword").value;
+
+      if (!mail || !pass || !newMail || !newPass) {
+        alert("Veuillez remplir tous les champs.");
+        return;
+      }
+      alert("Profil modifié avec succès !");
+      // Ici tu peux faire un fetch pour sauvegarder les modifs si besoin
+    }
+  </script>
 </body>
 </html>
