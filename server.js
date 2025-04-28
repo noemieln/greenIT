@@ -25,6 +25,7 @@ db.serialize(() => {
     )`);
 });
 
+
 // Routes API CRUD Figurines
 app.get('/api/figurines', (req, res) => {
     db.all("SELECT * FROM figurines", [], (err, rows) => {
@@ -49,6 +50,29 @@ app.delete('/api/figurines/:id', (req, res) => {
         else res.json({ message: 'Figurine supprimée' });
     });
 });
+
+
+app.put('/api/figurines/:id', (req, res) => {
+    console.log(`Requête PUT reçue pour l'ID : ${req.params.id}`);
+    const { nom, description, image_url } = req.body;
+    const id = req.params.id;
+
+    db.run(`UPDATE figurines SET nom = ?, description = ?, image_url = ? WHERE id = ?`,
+        [nom, description, image_url, id],
+        function(err) {
+            if (err) {
+                res.status(400).json({ error: err.message });
+            } else {
+                res.json({ message: 'Figurine modifiée avec succès' });
+            }
+        }
+    );
+});
+
+app.put('/test', (req, res) => {
+    res.json({ message: "Route PUT test ok !" });
+});
+
 
 // Démarrer le serveur
 app.listen(PORT, () => {
