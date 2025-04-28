@@ -1,124 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Gestion des Utilisateurs</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cal Sans', sans-serif;
+      background-color: #fceefd;
+      margin: 0;
+      padding: 20px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      width: 60px;
+      margin-right: 10px;
+    }
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .logo-text h2 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+    .logo-text p {
+      margin: 0;
+      font-size: 0.8em;
+      letter-spacing: 1px;
+    }
+    .nav {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      background-color: #dcaefb;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      color: black;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #c797ea;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 2em;
+    }
+    .underline {
+      width: 300px;
+      height: 3px;
+      background-color: #dcaefb;
+      margin: 0 auto 40px auto;
+    }
+    .content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      margin-bottom: 30px;
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .form input[type="text"], .form input[type="email"] {
+      padding: 10px;
+      width: 250px;
+      border: 2px solid #dcaefb;
+      border-radius: 10px;
+      font-family: inherit;
+    }
+    .radios {
+      display: flex;
+      gap: 30px;
+      margin-top: 20px;
+    }
+    .radios label {
+      color: #dcaefb;
+      font-weight: bold;
+    }
+    .submit-btn {
+      margin-top: 20px;
+      background-color: #dcaefb;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      color: black;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background-color: #c797ea;
+    }
+    .separator {
+      height: 3px;
+      background-color: #dcaefb;
+      margin-top: 50px;
+    }
+    .left-image img {
+      height: 250px;
+    }
+  </style>
 </head>
 
-
 <body>
-    <h1>👤 Gestion des Utilisateurs</h1>
 
-    <!-- Le formulaire -->
-    <h2>Ajouter un utilisateur</h2>
-    <form id="userForm">
-        <input type="text" id="username" placeholder="Username" required>
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="text" id="role" placeholder="Role" required>
-        <button type="submit">Ajouter</button>
+  <div class="header">
+    <div class="logo">
+      
+      <div class="logo-text">
+        <h2>Luna Figurine</h2>
+        <p>DISNEY</p>
+      </div>
+    </div>
+
+    <div class="nav">
+      <a href="index.html" class="btn">Accueil</a>
+      <a href="nos-figurines.html" class="btn">Nos figurines</a>
+      <a href="login.html" class="btn">Se connecter</a>
+    </div>
+  </div>
+
+  <h1>Gestion des Utilisateurs</h1>
+  <div class="underline"></div>
+
+  <div class="content">
+    <div class="left-image">
+      <img src="images/logo.png" alt="Disney">
+    </div>
+
+    <form class="form" id="userForm">
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="text" id="role" placeholder="Rôle (user ou admin)" required>
+
+      <div class="radios">
+        <label><input type="radio" name="action" value="add" required> Ajouter</label>
+        <label><input type="radio" name="action" value="delete"> Supprimer</label>
+        <label><input type="radio" name="action" value="edit"> Modifier</label>
+      </div>
+
+      <button type="submit" class="submit-btn">Valider</button>
     </form>
+  </div>
 
-    <!-- Le tableau des utilisateurs -->
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Actions</th>
-            </tr>
+  <div class="separator"></div>
 
-        </thead>
-        <tbody id="userTable">
-            <!-- Les users s'affichent ici -->
-        </tbody>
-    </table>
+  <script>
+    document.getElementById('userForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const role = document.getElementById('role').value;
+      const action = document.querySelector('input[name="action"]:checked').value;
 
-    <!-- Script pour afficher les users -->
-    <script>
-        fetch('/api/users')
-            .then(response => response.json())
-            .then(data => {
-                const table = document.getElementById('userTable');
-                data.forEach(user => {
-                    table.innerHTML += `
-                        <tr>
-                            <td>${user.id}</td>
-                            <td>${user.username}</td>
-                            <td>${user.email}</td>
-                            <td>${user.role}</td>
-                            <td>
-                                <button onclick="editUser(${user.id}, '${user.username}', '${user.email}', '${user.role}')">Modifier</button>
-                                <button onclick="deleteUser(${user.id})">Supprimer</button>
-                            </td>
-                        </tr>
-                    `;
-                });
-            })
-            .catch(err => console.error('Erreur :', err));
-    </script>
+      if (action === 'add') {
+        alert(`Ajout de l'utilisateur : ${email} avec rôle ${role}`);
+      } else if (action === 'delete') {
+        alert(`Suppression de l'utilisateur : ${email}`);
+      } else if (action === 'edit') {
+        alert(`Modification de l'utilisateur : ${email} avec rôle ${role}`);
+      }
+    });
+  </script>
 
-    
-    <script>
-        document.getElementById('userForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const user = {
-                username: document.getElementById('username').value,
-                email: document.getElementById('email').value,
-                role: document.getElementById('role').value
-            };
-
-            fetch('/api/users', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(user)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert("Utilisateur ajouté avec l'ID : " + data.id);
-                location.reload();  // Recharge la page pour voir le nouvel user
-            })
-            .catch(err => console.error('Erreur :', err));
-        });
-    </script>
-    <script>
-        function deleteUser(id) {
-            if(confirm("Tu veux vraiment supprimer cet utilisateur ?")) {
-                fetch(`/api/users/${id}`, {
-                    method: 'DELETE'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message);
-                    location.reload();  // Recharge pour mettre à jour le tableau
-                })
-                .catch(err => console.error('Erreur :', err));
-            }
-        }
-    </script>
-    <script>
-        function editUser(id, currentUsername, currentEmail, currentRole) {
-            const username = prompt("Nouveau username :", currentUsername);
-            const email = prompt("Nouvel email :", currentEmail);
-            const role = prompt("Nouveau rôle :", currentRole);
-    
-            if(username && email && role) {
-                fetch(`/api/users/${id}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, email, role })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message);
-                    location.reload();
-                })
-                .catch(err => console.error('Erreur :', err));
-            } else {
-                alert("Modification annulée ou incomplète !");
-            }
-        }
-    </script>
-    
-    <a href="index.html" class="bouton-retour"> Retour à l'accueil</a>
-
-    
 </body>
+</html>
