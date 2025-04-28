@@ -5,17 +5,22 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// Middleware
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+// Logger des requêtes
+app.use((req, res, next) => {
+    console.log(`➡️ ${req.method} ${req.url}`);
+    next();
+});
 
-// Connexion à la BDD SQLite
+// Middleware JSON
+app.use(express.json());
+
+// Connexion BDD
 const db = new sqlite3.Database('./database/disney.db', (err) => {
     if (err) console.error('Erreur de connexion à la BDD', err);
     else console.log('Connecté à la base de données SQLite');
 });
 
-// Création de la table figurines si elle n'existe pas
+// Création table
 db.serialize(() => {
     db.run(`CREATE TABLE IF NOT EXISTS figurines (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,8 +30,7 @@ db.serialize(() => {
     )`);
 });
 
-
-// Routes API CRUD Figurines
+// Routes API
 app.get('/api/figurines', (req, res) => {
     db.all("SELECT * FROM figurines", [], (err, rows) => {
         if (err) res.status(400).json({ error: err.message });
@@ -51,9 +55,9 @@ app.delete('/api/figurines/:id', (req, res) => {
     });
 });
 
-
-app.put('/api/figurines/:id', (req, res) => {
-    console.log(`Requête PUT reçue pour l'ID : ${req.params.id}`);
+// 🚨 Nouvelle route POST pour modifier
+app.post('/api/figurines/:id/update', (req, res) => {
+    console.log(`Requête UPDATE (POST) reçue pour l'ID : ${req.params.id}`);
     const { nom, description, image_url } = req.body;
     const id = req.params.id;
 
@@ -63,19 +67,20 @@ app.put('/api/figurines/:id', (req, res) => {
             if (err) {
                 res.status(400).json({ error: err.message });
             } else {
-                res.json({ message: 'Figurine modifiée avec succès' });
+                res.json({ message: 'Figurine modifiée avec succès via POST' });
             }
         }
     );
 });
 
-app.put('/test', (req, res) => {
-    res.json({ message: "Route PUT test ok !" });
+// Static + 404
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use((req, res) => {
+    res.status(404).json({ error: "Route non trouvée", methode: req.method, chemin: req.url });
 });
 
-
-// Démarrer le serveur
+// Lancement serveur
 app.listen(PORT, () => {
-    console.log(`Serveur démarré sur http://localhost:${PORT}`);
+    console.log(`🔥 Serveur lancé sur http://localhost:${PORT}`);
 });
-

@@ -2,7 +2,7 @@
 window.onload = chargerFigurines;
 
 function chargerFigurines() {
-    fetch('http://localhost:3000/api/figurines')
+    fetch('/api/figurines')
         .then(res => res.json())
         .then(data => {
             const table = document.getElementById('tableFigurines');
@@ -56,7 +56,7 @@ function supprimerFigurine(id) {
     }
 }
 
-// Fonction globale pour gérer le clic sur "Modifier"
+// Gérer le clic sur Modifier
 document.addEventListener('click', function(e) {
     if(e.target && e.target.classList.contains('btn-modifier')) {
         const btn = e.target;
@@ -69,15 +69,15 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// Modifier une figurine
+// Modifier une figurine via POST (URL relative)
 function modifierFigurine(id, currentNom, currentDescription, currentImage) {
     const nom = prompt("Nom de la figurine :", currentNom);
     const description = prompt("Description :", currentDescription);
     const image_url = prompt("Nom du fichier image :", currentImage);
 
     if(nom && description && image_url) {
-        fetch(`http://localhost:3000/api/figurines/${id}`, {
-            method: 'PUT',
+        fetch(`/api/figurines/${id}/update`, {
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nom, description, image_url })
         })
@@ -96,8 +96,7 @@ function modifierFigurine(id, currentNom, currentDescription, currentImage) {
     }
 }
 
-
-// Petite fonction pour éviter les problèmes de caractères spéciaux
+// Fonction pour éviter les problèmes de caractères spéciaux
 function encodeHTML(str) {
     return str.replace(/&/g, "&amp;")
               .replace(/</g, "&lt;")
